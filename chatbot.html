@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <div class="root"></div>
+
+    <script>console.log('Hello, React!');</script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js""></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script type="text/babel">
+        function ChatInput() {
+            return (
+                <>
+                    <input placeholder="Send a message to Chatbot" size="30" />
+                    <button>Send</button>
+                </>
+            );
+        }
+
+        function ChatMessage() {
+            return (
+                <div>
+                    hello Chatbot
+                    <img src="user.png" width="50"/>
+                </div>
+            );
+        }
+
+        const app = (
+            <>
+                <ChatInput />
+                <ChatMessage />
+            </>
+        );
+
+        const root = ReactDOM.createRoot(document.querySelector('.root'));
+        root.render(app);
+    </script>
+</body>
+</html>
