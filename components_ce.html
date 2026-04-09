@@ -15,11 +15,11 @@
 
     <script type="text/babel">
 
-        function ProductDetails({product, price, discountPrice, imageSrc}) {
+        function ProductDetails({ product, price, discountPrice, imageSrc }) {
             return (
-                <div style={{margin: '0 0 10px 0'}}>
+                <div style={{ margin: '0 0 10px 0' }}>
                     <div>
-                        <img src={imageSrc} width='100'/>
+                        <img src={ imageSrc } width='100'/>
                     </div>
                     <p>{ product }</p>
                     {discountPrice ? (
