@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State & Event Handlers</title>
+</head>
+<body>
+    <div class="container"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js""></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        function InputText() {
+            const [text, setText] = React.useState('');
+
+            function changeInput(event) {
+                setText(event.target.value)
+            }
+
+            function reset() {
+                setText('')
+            }
+
+            function example() {
+                setText('Bekzod')
+            }
+
+            return (
+                <>
+                    <input 
+                        onChange={changeInput}
+                        value={text}
+                    />
+                    <button 
+                        onClick={reset}    
+                    >Reset
+                    </button>
+                    <button 
+                        onClick={example}
+                    >Example
+                    </button>
+                    <p>Hello {text}</p>
+                </>
+            )
+
+        }
+
+        function App() {
+            return (
+                <>
+                    <InputText />
+                </>
+            );
+        }
+        
+        const root = ReactDOM.createRoot(document.querySelector(".container"));
+        root.render(<App />);
+    </script>
+</body>
+</html>

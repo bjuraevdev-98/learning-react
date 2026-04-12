@@ -16,27 +16,49 @@
     <script type="text/babel">
         function ChatInput({ chatMessages, setChatMessages }) {
             const [inputText, setInputText] = React.useState('');
+            const [isLoading, setIsLoading] = React.useState(false);
 
 
             function saveInputText(event) {
                 setInputText(event.target.value)
             }
 
-            function sendMessage() {
+            function keyPressed(event) {
+                if (!inputText || isLoading) return;
+                if (event.key === 'Enter') {
+                    sendMessage();
+                    setInputText('');
+                }
+                if (event.key === 'Escape') {
+                    setInputText('');
+                }
+            }
+
+            async function sendMessage() {
+                if (!inputText || isLoading) return;
+                setInputText('');
+
                 const newChatMessages = [
                     ...chatMessages,
                     {
                         message: inputText,
                         sender: 'user',
                         id: crypto.randomUUID()
+                    },
+                    {
+                        message: 'Loading...',
+                        sender: 'robot',
+                        id: crypto.randomUUID()
                     }
                 ];
 
                 setChatMessages(newChatMessages);
 
-                const response = Chatbot.getResponse(inputText);
+                setIsLoading(true);
+
+                const response = await Chatbot.getResponseAsync(inputText);
                 setChatMessages([
-                    ...newChatMessages,
+                    ...newChatMessages.slice(0, newChatMessages.length - 1),
                     {
                         message: response,
                         sender: 'robot',
@@ -44,7 +66,7 @@
                     }
                 ]);
 
-                setInputText('');
+                setIsLoading(false);
             }
 
             return (
@@ -54,6 +76,7 @@
                         size="30" 
                         onChange={saveInputText}
                         value={inputText}
+                        onKeyDown={keyPressed}
                     />
                     <button
                         onClick={sendMessage}    
@@ -109,24 +132,7 @@
 
 
         function App() {
-            const [chatMessages, setChatMessages] = React.useState([
-            {
-                message: 'hello Chatbot',
-                sender: 'user',
-                id: 'id1'
-            }, {
-                message: 'Hello! How can I help you?',
-                sender: 'robot',
-                id: 'id2'
-            }, {
-                message: 'can you get me todays date?',
-                sender: 'user',
-                id: 'id3'
-            }, {
-                message: 'Today is April 8',
-                sender: 'robot',
-                id: 'id4'
-            }]);
+            const [chatMessages, setChatMessages] = React.useState([]);
             // const [chatMessages, setChatMessages] = array;
             // const chatMessages = array[0];
             // const setChatMessages = array[1];
