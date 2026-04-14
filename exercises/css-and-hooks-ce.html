@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS & Hooks Challenge Exercise</title>
+</head>
+<style>
+    .login-input {
+        border-radius: 10px;
+        padding: 15px 20px;
+        border-width: 1px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .action-button{
+        background-color: rgb(0, 123, 255);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 20px;
+        margin-right: 10px;
+    }
+</style>
+<body>
+    <div class="container"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js""></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        function Login() {
+            const [showPassword, setShowPassword] = React.useState(false);
+
+            function hidePassword() {
+                setShowPassword(!showPassword);
+            }
+
+            return (
+                <>
+                    <p>Hello, welcome to my website</p>
+                    <div>
+                        <input 
+                            className='login-input'
+                            placeholder='Email'
+                        />    
+                    </div>
+                    <div>
+                        <input 
+                            className='login-input'
+                            placeholder='Password'
+                            type={ showPassword ? 'text' : 'password' }
+                        />
+                        <button
+                            onClick={hidePassword}
+                        >Show
+                        </button>
+                    </div>
+                    <button className='action-button'>Login</button>
+                    <button className='action-button'>Sign up</button>
+                </>
+            )
+        }
+
+        function App() {
+            return (
+                <>
+                    <Login />
+                </>
+            );
+        }
+
+        const container = ReactDOM.createRoot(document.querySelector('.container'));
+        container.render(<App />);
+    </script>
+</body>
+</html>

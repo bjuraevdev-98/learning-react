@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter app</title>
+</head>
+<style>
+    body {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    button {
+        background-color: rgb(25, 135, 84);
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        margin-right: 10px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: rgb(222, 222, 222);
+    }
+</style>
+<body>
+    <div class="container"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js""></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        function App() {
+            const [clickCounts, setClickCounts] = React.useState(0);
+            const buttonRef = React.useRef(null);
+
+            function click() {
+                setClickCounts(clickCounts + 1);
+            }
+
+            function reset() {
+                setClickCounts(0);
+            }
+
+            function autoClick() {
+                setInterval(() => {
+                    const buttonElem = buttonRef.current;
+                    if (buttonElem) {
+                        buttonElem.click();
+                    }
+                }, 1000);
+            }
+
+            return (
+                <div className='button-container'>
+                    <button 
+                        ref={buttonRef}
+                        onClick={click}
+                        >Clicked {clickCounts} {clickCounts === 1 ? 'time' : 'times'}
+                    </button>
+                    <button
+                        onClick={reset}
+                    >Reset
+                    </button>
+                    <button 
+                        onClick={autoClick}
+                        >Auto Click
+                    </button>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.querySelector(".container"));
+        root.render(<App />);
+    </script>
+</body>
+</html>

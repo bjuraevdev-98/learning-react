@@ -75,6 +75,16 @@
             overflow: scroll;
             scrollbar-width: none;
         }
+
+        .welcome-text {
+            text-align: center;
+            color: grey;
+        }
+
+        .loading-spinner {
+            height: 40px;
+            margin: -15px;
+        }
     </style>
 </head>
 <body>
@@ -120,7 +130,7 @@
                         id: crypto.randomUUID()
                     },
                     {
-                        message: 'Loading...',
+                        message: <img src="loading-spinner.gif" className="loading-spinner" />,
                         sender: 'robot',
                         id: crypto.randomUUID()
                     }
@@ -159,6 +169,19 @@
                     >Send</button>
                 </div>
             );
+        }
+
+        function useAutoScroll(dependencies) {
+            const containerRef = React.useRef(null);
+
+            React.useEffect(() => {
+                const containerElem = containerRef.current;
+                if (containerElem) {
+                    containerElem.scrollTop = containerElem.scrollHeight;
+                }
+            }, dependencies);
+
+            return containerRef;
         }
 
         function ChatMessage({ message, sender }) {
@@ -201,14 +224,15 @@
         }
 
         function ChatMessages({ chatMessages }) {
-            const chatMessagesRef = React.useRef(null);
-
-            React.useEffect(() => {
-                const containerElem = chatMessagesRef.current;
-                if (containerElem) {
-                    containerElem.scrollTop = containerElem.scrollHeight;
-                }
-            }, [chatMessages]);
+            const chatMessagesRef = useAutoScroll([chatMessages]);
+            
+            if (chatMessages.length === 0) {
+                return (
+                    <p className='welcome-text'>
+                        Welcome to the chatbot project! Send a message using the textbox below.
+                    </p>
+                )
+            }
 
             return (
                 <div 

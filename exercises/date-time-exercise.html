@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date time</title>
+</head>
+<body>
+    <div class="container"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js""></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script type="text/babel">
+        function TimeApp() {
+            const [time, setTime] = React.useState(dayjs().format('HH:mm:ss'));
+
+            React.useEffect(() => {
+                setInterval(() => {
+                    setTime(dayjs().format('HH:mm:ss'));
+                }, 1000);
+            }, []);
+
+            return (
+                <>
+                    Current time: {time}
+                </>
+            )
+        }
+
+        function App() {
+            return (
+                <>
+                    <TimeApp />
+                </>
+            );
+        }
+
+        const container = ReactDOM.createRoot(document.querySelector('.container'));
+        container.render(<App />);
+    </script>
+    
+</body>
+</html>
