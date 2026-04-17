@@ -18,11 +18,12 @@ function ChatMessages({ chatMessages }) {
           className="chat-messages-container"
           ref={chatMessagesRef}
       >
-          { chatMessages.map(({ message, sender, id }) => {
+          { chatMessages.map(({ message, sender, time, id }) => {
           return (
               <ChatMessage 
                   message={ message }
                   sender={ sender }
+                  time={ time }
                   key={ id }
               />
           )

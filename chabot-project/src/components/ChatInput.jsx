@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Chatbot } from 'supersimpledev';
+import dayjs from 'dayjs'
 import LoadingSpinner from '../assets/loading-spinner.gif';
 import './ChatInput.css'
 
@@ -24,38 +25,45 @@ export function ChatInput({ chatMessages, setChatMessages }) {
   }
 
   async function sendMessage() {
-      if (!inputText || isLoading) return;
-      setInputText('');
+    if (!inputText || isLoading) return;
+    setInputText('');
+    const time = dayjs().valueOf();
 
-      const newChatMessages = [
-          ...chatMessages,
-          {
-              message: inputText,
-              sender: 'user',
-              id: crypto.randomUUID()
-          },
-          {
-              message: <img src={LoadingSpinner} className="loading-spinner" />,
-              sender: 'robot',
-              id: crypto.randomUUID()
-          }
-      ];
+    const newChatMessages = [
+        ...chatMessages,
+        {
+            message: inputText,
+            sender: 'user',
+            time: time,
+            id: crypto.randomUUID()
+        },
+        {
+            message: <img src={LoadingSpinner} className="loading-spinner" />,
+            sender: 'robot',
+            id: crypto.randomUUID()
+        }
+    ];
 
-      setChatMessages(newChatMessages);
+    setChatMessages(newChatMessages);
 
-      setIsLoading(true);
+    setIsLoading(true);
 
-      const response = await Chatbot.getResponseAsync(inputText);
-      setChatMessages([
-          ...newChatMessages.slice(0, newChatMessages.length - 1),
-          {
-              message: response,
-              sender: 'robot',
-              id: crypto.randomUUID()
-          }
-      ]);
+    const response = await Chatbot.getResponseAsync(inputText);
+    setChatMessages([
+        ...newChatMessages.slice(0, newChatMessages.length - 1),
+        {
+            message: response,
+            sender: 'robot',
+            time: time,
+            id: crypto.randomUUID()
+        }
+    ]);
 
-      setIsLoading(false);
+    setIsLoading(false);
+  }
+
+  function clearMessages() {
+    setChatMessages([]);
   }
 
   return (
@@ -72,6 +80,10 @@ export function ChatInput({ chatMessages, setChatMessages }) {
               onClick={sendMessage}
               className="send-button"
           >Send</button>
+          <button
+              onClick={clearMessages}
+              className="clear-messages-button"
+          >Clear</button>
       </div>
   );
 }
