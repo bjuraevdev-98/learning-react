@@ -76,6 +76,16 @@
   margin-bottom: 22px;
 }
 
+.cart-item-details .quantity-input {
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 50px;
+}
+
+.cart-item-details .quantity-label {
+  margin-left: 4px;
+}
+
 .checkout-page .cart-item-details-grid {
   display: grid;
   /* 100px 1fr 1fr; means the 2nd and 3rd column will
