@@ -6,8 +6,10 @@ export function PaymentSummary({ paymentSummary, loadCart }) {
     const navigate = useNavigate();
 
     const createOrder = async () => {
-        await axios.post('/api/orders');
-        await loadCart();
+        if(paymentSummary.totalCostCents) {
+            await axios.post('/api/orders');
+            await loadCart();
+        };
         navigate('/orders');
     }
 

@@ -11,7 +11,7 @@ export function OrderProduct({ order, orderProduct, loadCart }) {
 
         await loadCart();
     }
-    
+
     return (
         <>
             <div className="product-image-container">

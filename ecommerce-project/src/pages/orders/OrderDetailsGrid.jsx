@@ -10,7 +10,7 @@ export function OrderDetailsGrid({ order, loadCart }) {
                     <OrderProduct
                         key={orderProduct.product.id}
                         order={order}
-                        orderProduct={orderProduct} 
+                        orderProduct={orderProduct}
                         loadCart={loadCart}
                     />
                 );
