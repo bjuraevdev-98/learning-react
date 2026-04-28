@@ -27,9 +27,9 @@ export function CartItemDetails({ cartItem, loadCart }) {
     };
 
     const keyPressed = (event) => {
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
             updateQuantity();
-        } else if(event.key === 'Escape') {
+        } else if (event.key === 'Escape') {
             setQuantity(cartItem.quantity);
             setIsUpdate(false);
         }
